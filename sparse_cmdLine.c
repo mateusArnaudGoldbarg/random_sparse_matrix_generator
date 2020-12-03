@@ -15,6 +15,7 @@ int randInRange(int min, int max)
 void print_matrix(int ****m,int kernels,int layers,int size){
     for(int l = 0; l <layers;l++){
         for(int k = 0; k < kernels;k++){
+            printf("layer: %d kernel: %d \n", l,k);
             for (int i = 0; i < size ; i++){
                 for(int j = 0; j < size ; j++){
                     printf("%d ", m[l][k][i][j]);
@@ -23,7 +24,7 @@ void print_matrix(int ****m,int kernels,int layers,int size){
             }
             printf("\n \n");
         }
-        printf("\n\n");
+        //printf("\n\n");
     }
 }
 void check_sparsity(int ****m,int kernels, int layers, int size){
@@ -52,7 +53,7 @@ void check_sparsity(int ****m,int kernels, int layers, int size){
 void sparse_matrix_generate(int ****m, int sparsity, int kernels, int layers, int size){
     int nonzeros = (100 - sparsity)/100.0 * ((size*size));
 
-    printf("%d \n",nonzeros);
+    //printf("%d \n",nonzeros);
 
     int k = 0;
     int j = 0;
@@ -64,13 +65,13 @@ void sparse_matrix_generate(int ****m, int sparsity, int kernels, int layers, in
 
                 int index_i = randInRange(0,size);
                 int index_j = randInRange(0,size);
-		printf("%d  %d \n",index_i,index_j);
+		//printf("%d  %d \n",index_i,index_j);
                 if (m[l][k][index_i][index_j] != 0){
                     continue;
                 }	
                 m[l][k][index_i][index_j] = randInRange(1,9);
                 j++;
-    		printf("%d \n",j);
+    		
             }
             j=0;
             k++;
