@@ -15,7 +15,6 @@ int randInRange(int min, int max)
 void print_matrix(int ****m,int kernels,int layers,int size){
     for(int l = 0; l <layers;l++){
         for(int k = 0; k < kernels;k++){
-            printf("layer = %d , kernel = %d \n",l,k);
             for (int i = 0; i < size ; i++){
                 for(int j = 0; j < size ; j++){
                     printf("%d ", m[l][k][i][j]);
