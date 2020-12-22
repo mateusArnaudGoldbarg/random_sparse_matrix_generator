@@ -12,13 +12,11 @@ float randInRange(float min, float max)
 }
 
 int main(){
-
-	DDRB |=  0b00000010; // PB1 como saída
+	DDRB |=  0b00000010;
 	TCCR1A |= 0b10000011;
-	TCCR1B |= 0b00001010; //Div 64
+	TCCR1B |= 0b00001010;
 	
-	
-	srand (time(NULL));
+	srand (time(NULL)); //<-Not Working for MICROCHIP STUDIO
 	int sparsity = 0;
 	int kernels = 8;
 	int layers = 1;
@@ -86,33 +84,25 @@ int main(){
 	int b = 0;
 	float res = 0;
 	int ker = 0;
-while(1){
-	while(ker < kernels){
-		for (int i = 0; i< 18 ; i++){
-			for (int j = 0; j < 18 ; j++){
-				for (int k = 0; k<s;k++){
-					for (int l = 0 ; l < s;l++){
-						res += mO[i+k][j+l]*m[0][ker][k][l];
-						//printf("%d * %d = (%d, %d) \n",m[0][0][k][l], mO[i+p][j+q], i+p,j+q);
+	while(1){
+		while(ker < kernels){
+			for (int i = 0; i< 18 ; i++){
+				for (int j = 0; j < 18 ; j++){
+					for (int k = 0; k<s;k++){
+						for (int l = 0 ; l < s;l++){
+							res += mO[i+k][j+l]*m[0][ker][k][l];
+						}
 					}
+					mr[a][b] = res;
+					OCR1A = res;
+					res = 0;
+					b++;
 				}
-
-				//printf("\n \n");
-				mr[a][b] = res;
-				OCR1A = res;
-				res = 0;
-				b++;
+				b=0;
+				a++;
 			}
-			b=0;
-			a++;
+			a=0;
+			ker++;
 		}
-		a=0;
-		ker++;
 	}
-}
-	
-	
-	
-	
-
 }
