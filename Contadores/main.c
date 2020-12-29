@@ -107,7 +107,7 @@ int main(){
   int xm=0;
   int ym=0;
 
-  int sparse_m[nonzeros][5];
+  int sparse_m[nonzeros][4];
   float weights[nonzeros];
 
 
@@ -116,7 +116,6 @@ int main(){
           for (int i = 0; i < s ; i++){
               for(int j = 0; j < s ; j++){
                   if(m[l][k][i][j] != 0){
-                      printf("AAAAAAAAA \n");
                       sparse_m[xm][ym] = l;
                       sparse_m[xm][ym+1] = k;
                       sparse_m[xm][ym+2] = i;
@@ -184,101 +183,6 @@ int main(){
   //printf("%d\n\n",k);
   }
 
-
-
-
-
-
-
-
-
-
-
-
-
-  /*
-      for(int l = 0; l< layers; l++){
-        for(int k = 0; k < kernels;k++){
-              for (int i = 0; i < s ; i++){
-                  for(int j = 0; j < s ; j++){
-                      if(m[l][k][i][j] != 0){
-                          sparce_m[xm][ym] = l;
-                          sparce_m[xm][ym+1] = k;
-                          sparce_m[xm][ym+2] = i;
-                          sparce_m[xm][ym+3] = j;
-                          sparce_m[xm][ym+4] = m[l][k][i][j];
-                          xm++;
-                      }
-                  }
-              }
-          }
-      }
-
-    printf("MATRIZ ESPARSA \n");
-    for (int i = 0; i < nonzeros; i++){
-        for(int j = 0; j < 5; j++){
-            printf("%f ",sparce_m[i][j]);
-        }
-        printf("\n");
-    }
-
-
-    printf("\n\n");
-    for (int i = 0; i< 20 ; i ++){
-        for (int j =0 ; j< 20 ; j++){
-            printf("%f ", mO[i][j]);
-        }
-        printf("\n");
-    }
-    printf("\n\n");
-
-
-    //PRIMEIRA CAMADA
-    float res = 0;
-    int pass = 0;
-    int diff_i = 0;
-    int diff_j = 0;
-    int a = 0;
-    int b = 0;
-    int line = 0;
-
-    while(k < kernels){
-        //printf("ESTOU AQUI\n");
-        for(int i = 0; i < 18; i++){
-            for(int j = 0; j< 18; j++){
-                pass = 0;
-                while(pass < nonzeros){
-                        if(k == sparce_m[pass][1]){
-                            diff_i = sparce_m[pass][2];
-                            diff_j = sparce_m[pass][3];
-                            res+=mO[i + diff_i][j +diff_j]*sparce_m[pass][4];
-                           // printf("%d, %d, %d, %d \n",diff_i,diff_j, i+diff_i, j+diff_j);
-                        }
-                        pass++;
-                        //printf("%d\n",pass);
-                }
-                mr[a][b] = res;
-                line = res;
-                printf("%d, %d = %d\n",a,b,line);
-                res = 0;
-                b++;
-            }
-            a++;
-            b=0;
-
-        }
-        a=0;
-        for (int ii = 0; ii< 18 ; ii ++){
-            for (int jj =0 ; jj < 18 ; jj++){
-                printf("%f ", mr[ii][jj]);
-            }
-            printf("\n");
-        }
-        printf("\n\n");
-    k++;
-    printf("%d\n\n",k);
-    }
-    */
 
 }
 
