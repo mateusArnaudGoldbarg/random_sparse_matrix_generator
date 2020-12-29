@@ -22,18 +22,17 @@ float randInRange(float min, float max)
 
 
 int main(){
-
-  //srand (time( NULL));
-  int sparsity = 5;
+  DDRB |=  0b00000010;
+  TCCR1A |= 0b10000011;
+  TCCR1B |= 0b00001010;
+  srand (time( NULL));
+  int sparsity = 90;
   int kernels = 8;
   int layers = 1;
   int s = 3;
   float m[layers][kernels][s][s];
  
-  DDRB |=  0b00000010;
   
-  TCCR1A |= 0b10000011;
-  TCCR1B |= 0b00001010;
 
   int mO[20][20] = {
       {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
@@ -96,22 +95,23 @@ int main(){
       l++;
   }
 
-  int xm=0;
-  int ym=0;
+  
 
-  int sparse_m[nonzeros][5];
+  int sparse_m[nonzeros][4];
   float weights[nonzeros];
-
+  int xm=0;
+  //int ym=0;
 
   for(int l = 0; l< layers; l++){
     for(int k = 0; k < kernels;k++){
           for (int i = 0; i < s ; i++){
-              for(int j = 0; j < s ; j++){
+              for(int j = 0; j < s ; j++){ 
                   if(m[l][k][i][j] != 0){
-                      sparse_m[xm][ym] = l;
-                      sparse_m[xm][ym+1] = k;
-                      sparse_m[xm][ym+2] = i;
-                      sparse_m[xm][ym+3] = j;
+					  
+                      sparse_m[xm][0] = l;
+                      sparse_m[xm][1] = k;
+                      sparse_m[xm][2] = i;
+                      sparse_m[xm][3] = j;
                       weights[xm] = m[l][k][i][j];
                       xm++;
                   }
@@ -126,7 +126,7 @@ int main(){
   int a = 0;
   int b = 0;
   int line = 0;
-
+while(1){
   while(k < kernels){
       for(int i = 0; i < 18; i++){
           for(int j = 0; j< 18; j++){
@@ -134,12 +134,14 @@ int main(){
               while(pass < nonzeros){
                       if(k == sparse_m[pass][1]){
                           res+=mO[i + sparse_m[pass][2]][j + sparse_m[pass][3]]*weights[pass];
+						  
                       }
                       pass++;
               }
               mr[a][b] = res;
-              //line = res;
+              line = res;
 			  OCR1A = res;
+
               res = 0;
               b++;
           }
@@ -148,7 +150,8 @@ int main(){
       }
       a=0;
   k++;
+  
   }
 }
-
+}
 
