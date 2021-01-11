@@ -26,7 +26,7 @@ int main(){
   TCCR1A |= 0b10000011;
   TCCR1B |= 0b00001010;
   srand (time( NULL));
-  int sparsity = 0;
+  int sparsity = 50;
   int kernels = 8;
   int layers = 1;
   int s = 3;
@@ -132,6 +132,7 @@ while(1){
   while(k < kernels){
 	  comeco = comeco_prox;
 	  line = nonzeros;
+	  
       for(int i = 0; i < 18; i++){
           for(int j = 0; j< 18; j++){
               pass = comeco;
@@ -140,15 +141,15 @@ while(1){
                           res+=mO[i + sparse_m[pass][2]][j + sparse_m[pass][3]]*weights[pass];
 						  pass++;
                       } else{
-						  line = pass;
-						  comeco_prox = pass;
+		     line = pass;
+		     comeco_prox = pass;
 						  
-					  }
+		     }
                       
               }
               mr[a][b] = res;
               //line = res;
-			  OCR1A = res;
+       	      OCR1A = res;
 
               res = 0;
               b++;
