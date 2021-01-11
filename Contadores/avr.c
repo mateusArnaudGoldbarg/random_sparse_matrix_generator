@@ -26,7 +26,7 @@ int main(){
   TCCR1A |= 0b10000011;
   TCCR1B |= 0b00001010;
   srand (time( NULL));
-  int sparsity = 90;
+  int sparsity = 0;
   int kernels = 8;
   int layers = 1;
   int s = 3;
@@ -35,7 +35,7 @@ int main(){
   
 
   int mO[20][20] = {
-      {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+      {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
       {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
       {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
       {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
@@ -125,21 +125,29 @@ int main(){
   int pass = 0;
   int a = 0;
   int b = 0;
-  int line = 0;
+  int line = nonzeros;
+  int comeco_prox = 0;
+  int comeco = 0;
 while(1){
   while(k < kernels){
+	  comeco = comeco_prox;
+	  line = nonzeros;
       for(int i = 0; i < 18; i++){
           for(int j = 0; j< 18; j++){
-              pass = 0;
-              while(pass < nonzeros){
+              pass = comeco;
+              while(pass < line){
                       if(k == sparse_m[pass][1]){
                           res+=mO[i + sparse_m[pass][2]][j + sparse_m[pass][3]]*weights[pass];
+						  pass++;
+                      } else{
+						  line = pass;
+						  comeco_prox = pass;
 						  
-                      }
-                      pass++;
+					  }
+                      
               }
               mr[a][b] = res;
-              line = res;
+              //line = res;
 			  OCR1A = res;
 
               res = 0;
